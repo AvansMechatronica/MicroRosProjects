@@ -3,10 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to MicroRos joystick documentation!
+Welcome to MicroRos projects documentation!
 ===========================================
 
-**Welcome to MicroRos joystick** 
+**Welcome to MicroRos projects** 
 
 .. note::
    This project is under active development.
@@ -17,6 +17,9 @@ Welcome to MicroRos joystick documentation!
    :caption: Contents:
 
    documentation/main.md
+   documentation/microros_installation.md
+   documentation/ultrasonic_sensor.md
+   documentation/joystick.md
 
 
 
