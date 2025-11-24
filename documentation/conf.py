@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'MicroRos Projects
+project = 'MicroRos Projects'
 copyright = 'Gerard Harkema'
 author = 'Gerard Harkema'
 release = '0.1'

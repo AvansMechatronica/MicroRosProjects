@@ -18,6 +18,7 @@ Welcome to MicroRos projects documentation!
 
    documentation/main.md
    documentation/microros_installation.md
+   documentation/microros_agent.md
    documentation/ultrasonic_sensor.md
    documentation/joystick.md
 
