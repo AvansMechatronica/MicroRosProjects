@@ -1,5 +1,28 @@
 # Inleiding
 
+In deze documentatie wordt uitgelegd hoe je verschillende microros controllers kunt gebruiken met een micro-ROS agent. De joystick controller kan worden aangesloten via USB of WiFi, afhankelijk van de beschikbare hardware en voorkeuren.
+
+De volgende controllers worden ondersteund:
+- Joystick controller via USB
+- Joystick controller via WiFi
+- Ultarasonic sensor via USB
+
+Voor dat je begint dien je Visual Studio Code met PlatformIO geïnstalleerd te hebben. Daarnaast is het aan te raden om een Linux omgeving te gebruiken, bijvoorbeeld:
+- Native Ubuntu installatie
+- Dual boot met Ubuntu
+- Virtual Machine met Ubuntu
+- WSL2 op Windows
+
+Zie voor nadere instructies de [IDE installatie handleiding](ide_installation.md).
+
+Tevens dien je een micro-ROS agent geïnstalleerd te hebben. Zie voor nadere instructies de [micro-ROS agent installatie handleiding](micro_ros_agent_installation.md).
+
+# Microros Joystick Controller
+
+
+
+
+
 ## Under construction
 
 Clone repository

@@ -17,11 +17,12 @@ Welcome to MicroRos projects documentation!
    :caption: Contents:
 
    documentation/main.md
-   documentation/microros_installation.md
-   documentation/microros_agent.md
+   documentation/ide_installation.md
+   documentation/micro_ros_agent_installation.md
+   documentation/instructions_programming_esp32.md
    documentation/ultrasonic_sensor.md
    documentation/joystick.md
-
+   documentation/devices.md
 
 
 # License
