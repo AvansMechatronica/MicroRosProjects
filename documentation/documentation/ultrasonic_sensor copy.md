@@ -1,4 +1,4 @@
-# Microros Ultrasoon sensor
+# MicroROS ESP32 implementatie van range-sensor
 
 In dit voorbeeld wordt een SFR-04 ultrasoon sensor gekoppeld aan den ESP32 device. Nadat deze is geprogrammeerd zal dit device een topic **/sensor_info** publiceren. Met de ultrasoon sensor kun je vervolgens een afstand meten.
 

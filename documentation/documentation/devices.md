@@ -7,7 +7,7 @@ In deze workshop wordt gewerkt met de volgende ESP32 devices:
 
 :::{tab-item} ESP32-WROOM
 
-![image](../images/ESP32/esp32.jpg)
+![image](../../images/ESP32/esp32.jpg)
 Environmet: eps32-upesy_wroom
 Environment: **eps32-upesy_wroom** 
 ```text
@@ -20,7 +20,7 @@ board = esp32-s3-devkitc-1
 :::
 
 :::{tab-item} ESP32-WROOM-Mini
-![image](../images/ESP32/esp32-mini.jpg)
+![image](../../images/ESP32/esp32-mini.jpg)
 Environment: **eps32-upesy_wroom** 
 ```text
 platform = espressif32
@@ -30,12 +30,12 @@ board = esp32-s3-devkitc-1
 
 {octicon}`alert;2em;sd-text-info`Deze ESP32-WROOM-Mini heeft dezelfde specificatie als de ESP32-WROOM, echter de pinout is afwijkend:
 
-![Pinots](../images/ESP32/esp32-mini-pinout.png)
+![Pinots](../../images/ESP32/esp32-mini-pinout.png)
 :::
 
 :::{tab-item} ESP32C3-Mini
 
-![image](../images/ESP32/esp32-c3-mini.jpg)
+![image](../../images/ESP32/esp32-c3-mini.jpg)
 Environment: **esp32-C3** 
 ```text
 platform = espressif32
@@ -46,7 +46,7 @@ board = lolin_c3_mini
 :::
 
 :::{tab-item} ESP32S3-Mini
-![image](../images/ESP32/esp32-S3-mini.jpg)
+![image](../../images/ESP32/esp32-S3-mini.jpg)
 Environment: **esp32-S3** 
 ```text
 platform = espressif32
@@ -67,21 +67,21 @@ board = esp32-s3-devkitc-1
 Alvorens je een microROS programma kan compileren dien je de juiste environment te selecteren die bij het het gekozen ESP32 board past.
 Activeer de environment slectector:
 
-![image](../images/PlatformIO/SelectEnvironmentPre.JPG)
+![image](../../images/PlatformIO/SelectEnvironmentPre.JPG)
 
 Kies daarna de juiste environmet:
 
-![image](../images/PlatformIO/SelectEnvironment.JPG)
+![image](../../images/PlatformIO/SelectEnvironment.JPG)
 
 ### Software Compileren
 Je kunt het programma voor het device compileren met onderstaande functie:
 
-![image](../images/PlatformIO/Compile.JPG)
+![image](../../images/PlatformIO/Compile.JPG)
 
 ### Uploaden naar ESP32 device
 Nadat je het device hebt aangesloten via USB kun je de software naar het device uploaden:
 
-![image](../images/PlatformIO/Upload.JPG)
+![image](../../images/PlatformIO/Upload.JPG)
 
 Nadat de software succesvol is geüpload zal het programma automatisch in het device starten.
 
@@ -93,15 +93,15 @@ Tip: *Tijdens het uploaden zal getoond worden welke USB-device hiervoor gebruikt
 
 {octicon}`alert;2em;sd-text-info`Start in geen geval de *Serial Monitor*. Deze zal de communicatie over USB naar de microROS-agent blokkeren.
 
-![image](../images/PlatformIO/NoSerialMonitor.JPG)
+![image](../../images/PlatformIO/NoSerialMonitor.JPG)
 
 
 ## Voorbeelden
 Er zijn in het kader van deze modules al twee microROS implementaties gerealiseerd voor de volgende workshops:
 
-* ROS2 Basics: [range-sensor](../1_basics/ESP32/ultrasonic_sensor.md)
+* ROS2 Basics: [range-sensor](../../1_basics/ESP32/ultrasonic_sensor.md)
 
-* Manipulation: [joystick](../3_navigation/ESP32/joystick.md)
+* Manipulation: [joystick](../../3_navigation/ESP32/joystick.md)
 
 De microROS-agent kan worden gestart met het volgende commando:
 
