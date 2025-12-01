@@ -12,7 +12,7 @@ Open met Visual Code project van de range-sensor in de volgende map (alleen map 
 ```
 
 ## SRF-04 aansluiten
-![image](../../images/ESP32/srf-04.jpg)
+![image](../images/ESP32/srf-04.jpg)
 
 |    ESP32 Pin     | SFR-04 Pin |
 |:----------------:|:----------:|
