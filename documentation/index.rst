@@ -3,10 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to MicroRos projects documentation!
+Welcome to microROS projects documentation!
 ===========================================
 
-**Welcome to MicroRos projects** 
+**Welcome to microROS projects** 
 
 .. note::
    This project is under active development.
@@ -17,11 +17,12 @@ Welcome to MicroRos projects documentation!
    :caption: Contents:
 
    documentation/main.md
-   documentation/ide_installation.md
-   documentation/micro_ros_agent_installation.md
+   documentation/installation.md
+   documentation/repostory_verkrijgen.md  
    documentation/instructions_programming_esp32.md
    documentation/ultrasonic_sensor.md
    documentation/joystick.md
+   documentation/microros_agent_starten.md
    documentation/devices.md
 
 

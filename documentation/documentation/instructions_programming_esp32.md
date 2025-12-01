@@ -11,12 +11,12 @@ In dit hoofdstuk worden de belangrijkste functies beschreven voor het programmer
 
 (_Waarschuwing: Soms toont Visual Code zijn dialoogvensters achter het hoofdvenster, schakel over naar het dialoogvenster_)
 
-![Image](../images/PlatformIO//ScreenshotVisualCodeLayout.png)
+![Image](../images/PlatformIO/ScreenshotVisualCodeLayout.png)
 Commando's kunnen worden gegeven via de statusbalk aan de onderkant van het Visual Code venster, zie hieronder.
     
 ![Image](../images/PlatformIO/ScreenshotStatusBar.png)
 
-4. Selecteer project om de ESP32 te programmeren, door over de statusbalk te bewegen en klik op __Switch PlatormIO project Environment__.
+4. Selecteer project om de ESP32 te programmeren, door over de statusbalk te bewegen en klik op __Switch PlatformIO project Environment__.
 
 ![Image](../images/PlatformIO/ScreenshotSelectProjectStatusBar.png)
     Selecteer vervolgens project uit de Projectenlijst:
@@ -32,7 +32,7 @@ Commando's kunnen worden gegeven via de statusbalk aan de onderkant van het Visu
 
 ![Image](../images/PlatformIO/ScreenshotUpload.png)
 
-7. Als alternatief kun je de output van het programma volgen in het serial monitor venster, door over de statusbalk te bewegen en klik op de __Serial Monitor__ knop.
+8. Als alternatief kun je de output van het programma volgen in het serial monitor venster, door over de statusbalk te bewegen en klik op de __Serial Monitor__ knop.
 
 ![Image](../images/PlatformIO/ScreenshotTerminal.png)  
 [terug](ultrasonic_sensor.md)

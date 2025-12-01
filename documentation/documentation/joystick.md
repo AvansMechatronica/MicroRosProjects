@@ -1,2 +1,2 @@
-# Microros Joystick Controller
+# microROS Joystick Controller
 ## Under construction
