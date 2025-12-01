@@ -21,6 +21,10 @@ void setup() {
 
 uint32_t timeout_ms = 1000; // 1 second timeout for receiving data
 
+uint16_t byte_swap(uint16_t val){
+    return (val << 8) | (val >> 8);
+}
+
 void receive(){
   int frame_size = sizeof(vic_message_frame_t);
   vic_message_frame_t frame;
@@ -42,6 +46,8 @@ void receive(){
       Serial.printf("%02X ", buffer[i]);
   }
   Serial.println();
+  frame.header = byte_swap(frame.header);
+  frame.message = byte_swap(frame.message);
   Serial.printf("Received VIC frame - Header: %04X, Message: %04X, Footer: %02X\n", frame.header, frame.message, frame.footer);
   for(int i=0; i<sizeof(vic_commands)/sizeof(vic_command_t); i++){
       if(frame.message == vic_commands[i].command){
@@ -99,12 +105,19 @@ void loop() {
 
 
 
-#if 1
+#if 0
 
   receive();
 #else
-  uint8_t send[] = {0xAA, 0x55, 0x00, 0x06, 0xFB}; // Example command to request data
-  VIC_serial->write(send, sizeof(send)); // Send a test byte
+  //uint8_t send[] = {0xAA, 0x55, 0x00, 0x06, 0xFB}; // Example command to request data
+  //VIC_serial->write(send, sizeof(send)); // Send a test byte
+
+  vic_message_frame_t command_to_vic;
+  command_to_vic.header = 0x55AA;
+  command_to_vic.message = 0x04; 
+  command_to_vic.footer = 0xFB;
+  VIC_serial->write((uint8_t*)&command_to_vic, sizeof(command_to_vic));
+
   delay(5000); // Wait for a second before next iteration
 #endif
 }

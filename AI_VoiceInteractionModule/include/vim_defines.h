@@ -1,19 +1,19 @@
-#ifndef VIC_DEFINES_H
-#define VIC_DEFINES_H
+#ifndef VIM_DEFINES_H
+#define VIM_DEFINES_H
 
 typedef struct  __attribute__((packed))
 {
     uint16_t header;
     uint16_t message;
     uint8_t footer;
-} vic_message_frame_t;
+} vim_message_frame_t;
 
 typedef struct{
     uint16_t command;
     char* command_name;
-} vic_command_t;
+} vim_command_t;
 
-vic_command_t vic_commands[] = {
+vim_command_t vim_commands[] = {
     {0x0100, "WELCOME"},
     {0x0200, "BYE"},
     {0x0300, "HI-YAHBOOM"},
@@ -111,7 +111,7 @@ vic_command_t vic_commands[] = {
 };
 
 
-vic_command_t vic_response[] = {
+vim_command_t vim_response[] = {
     {0x0100, "welcome"},
     {0x0200, "bye"},
     {0x0300, "I am here"},
@@ -209,4 +209,4 @@ vic_command_t vic_response[] = {
 };
 
 
-#endif //VIC_DEFINES_H
+#endif //VIM_DEFINES_H
