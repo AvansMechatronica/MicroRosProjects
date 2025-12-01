@@ -30,12 +30,12 @@ board = esp32-s3-devkitc-1
 
 {octicon}`alert;2em;sd-text-info`Deze ESP32-WROOM-Mini heeft dezelfde specificatie als de ESP32-WROOM, echter de pinout is afwijkend:
 
-![Pinots](../../images/ESP32/esp32-mini-pinout.png)
+![Pinots](../images/ESP32/esp32-mini-pinout.png)
 :::
 
 :::{tab-item} ESP32C3-Mini
 
-![image](../../images/ESP32/esp32-c3-mini.jpg)
+![image](../images/ESP32/esp32-c3-mini.jpg)
 Environment: **esp32-C3** 
 ```text
 platform = espressif32
@@ -99,42 +99,6 @@ Er zijn in het kader van deze modules al twee microROS implementaties gerealisee
 * ROS2 Basics: [range-sensor](../../1_basics/ESP32/ultrasonic_sensor.md)
 
 * Manipulation: [joystick](../../3_navigation/ESP32/joystick.md)
-
-De microROS-agent kan worden gestart met het volgende commando:
-
-:::::{card} 
-
-::::{tab-set}
-
-:::{tab-item} USB
-
-```
-ros2 run micro_ros_agent micro_ros_agent serial --dev <usb-device>
-```
-
-Afhankelijk op welke USB poort je het embedded systeem hebt aangesloten dien je usb-device in te vullen.
- Bijvoorbeeld:
- * /dev/ttyUSB0
- * /dev/ttyACM0
-
-{octicon}`alert;2em;sd-text-info` Bij gebruik van WSL moet je het embedded systeem wel eerst met WSL verbinden, zie [Koppelen USB-devices aan WSL-Distributie](https://avansmechatronica.github.io/WindowsSubsystemForLinuxHandleiding/documentation/WSL_Handleiding.html#koppelen-usb-devices-aan-wsl-distributie)
-
-{octicon}`bell;2em;sd-text-info` Het device wordt getoond bij het uploaden/programmeren van het embedded systeem in Visual Code met de Platform IO plugin
-
-:::
-
-:::{tab-item} Wifi
-
-{octicon}`alert;2em;sd-text-info` Dit werkt alleen als in *platformio.ini* bestand de parameter **board_microROS_transport = wifi** is gezet.
-
-```bash
-ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
-```
-:::
-
-::::
-
-:::::
 
 
 
