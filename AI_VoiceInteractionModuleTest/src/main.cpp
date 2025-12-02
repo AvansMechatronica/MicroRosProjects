@@ -56,48 +56,6 @@ void receive(){
   }
 
 
-#if 0
-  while (VIC_serial->available() < frame_size){
-    if (millis() - startTime > timeout_ms){
-        Serial.printf("Timeout: geen scan data ontvangen\n");
-        //VIC_serial->flush();
-        //return false;
-        return;
-    }
-  }
-
-  Serial.printf("Data beschikbaar, bytes: %d\n", VIC_serial->available());
-  
-
-
-  if(VIC_serial->readBytes(((uint8_t*)&frame), frame_size) != frame_size) {
-      Serial.printf("Fout bij lezen volledige scan frame\n");
-      //return false;
-      return;
-  }
-  Serial.printf("Received VIC frame - Header: %04X, Message: %04X, Footer: %02X\n", frame.header, frame.message, frame.footer);
-#else
-#if 0
-  String buffer;
-  buffer = VIC_serial->readString(); // Clear buffer before reading new frame
-  Serial.printf("Received raw data: %s\n", buffer.c_str());
-  for(int i = 0; i<buffer.length()/2; i++){
-      String byteString = buffer.substring(i*2, i*2+2);
-      uint8_t byteValue = strtoul(byteString.c_str(), NULL, 16);
-      Serial.printf("Byte %d: %02X\n", i, byteValue);
-  }
-  for(int i=0; i<frame_size; i++){
-      if(buffer.length() < frame_size*2){
-          Serial.printf("Timeout: geen volledige scan data ontvangen\n");
-          return;
-      }
-      String byteString = buffer.substring(i*2, i*2+2);
-      frame.header = (i<2) ? (frame.header << 8) | strtoul(byteString.c_str(), NULL, 16) : frame.header;
-      frame.message = (i>=2 && i<4) ? (frame.message << 8) | strtoul(byteString.c_str(), NULL, 16) : frame.message;
-      frame.footer = (i==4) ? strtoul(byteString.c_str(), NULL, 16) : frame.footer;
-  }
-#endif
-#endif
 
 }
 

@@ -15,14 +15,15 @@
 
 
 std_msgs__msg__Int16 command_from_vim_msg;
-std_msgs__msg__Int16 response_to_vim_msg;
-
 std_msgs__msg__String command_from_vim_string_msg;
+
+std_msgs__msg__Int16 response_to_vim_msg;
 std_msgs__msg__String response_to_vim_string_msg;
 
-rcl_subscription_t response_to_vim_subscriber;
 rcl_publisher_t command_from_vim_publisher;
 rcl_publisher_t command_from_vim_string_publisher;
+
+rcl_subscription_t response_to_vim_subscriber;
 rcl_publisher_t response_to_vim_string_publisher;
 
 
@@ -108,14 +109,12 @@ void response_to_vim_callback(const void* msgin) {
   
   RCSOFTCHECK(rcl_publish(&response_to_vim_string_publisher, &response_to_vim_string_msg, NULL));
 
-  vim_message_frame_t command_to_vim;
-  command_to_vim.header = byte_swap(0xAA55);
-  command_to_vim.message = byte_swap(msg->data); 
-  command_to_vim.footer = 0xFB;
-  VIM_serial->write((uint8_t*)&command_to_vim, sizeof(command_to_vim));
-
+  vim_message_frame_t response_to_vim;
+  response_to_vim.header = byte_swap(0xAA55);
+  response_to_vim.message = byte_swap(msg->data); 
+  response_to_vim.footer = 0xFB;
+  VIM_serial->write((uint8_t*)&response_to_vim, sizeof(response_to_vim));
 }
-
 
 
 bool receive(vim_message_frame_t *frame){
@@ -215,6 +214,20 @@ void setup() {
     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int16),
     "command_from_vim"));
 
+  RCCHECK(rclc_publisher_init_default(
+    &command_from_vim_string_publisher,  
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, String),
+    "command_from_vim_string"));
+
+
+  RCCHECK(rclc_publisher_init_default(
+    &response_to_vim_string_publisher,
+    &node,
+    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, String),
+    "respond_to_vim_string"));
+
+
   // create response_to_vim_subscriber
   RCCHECK(rclc_subscription_init_default(
     &response_to_vim_subscriber,
@@ -222,17 +235,6 @@ void setup() {
     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int16),
     "response_to_vim"));
 
-  RCCHECK(rclc_publisher_init_default(
-    &command_from_vim_string_publisher,  
-    &node,
-    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, String),
-    "response_from_vim_string"));
-
-  RCCHECK(rclc_publisher_init_default(
-    &response_to_vim_string_publisher,
-    &node,
-    ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, String),
-    "command_to_vim_string"));
 
   // create timer,
   const unsigned int timer_timeout = 1000;
