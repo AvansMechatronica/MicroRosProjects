@@ -1,3 +1,14 @@
+// Filename: src/main.cpp
+// Voice Interaction Module for micro-ROS on ESP32
+// This demonstrates communication with a Voice Interaction Module (VIM)
+// via UART using micro-ROS. It sets up publishers and subscribers to handle
+// commands and responses between the ESP32 and the VIM.
+// Make sure to configure the VIM_TX_PIN and VIM_RX_PIN according to your wiring.
+// Required Libraries: micro_ros_platformio, HardwareSerial
+// Author: Gerard Harkema
+// Date: November 2025
+// License: CC BY-NC-SA 4.0
+
 #include <Arduino.h>
 #include <micro_ros_platformio.h>
 
@@ -5,6 +16,9 @@
 #include <rclc/rclc.h>
 #include <rclc/executor.h>
 #include "rosidl_runtime_c/string_functions.h"  // Header for string assignment functions
+#include <micro_ros_utilities/string_utilities.h>
+#include <micro_ros_utilities/type_utilities.h>
+
 
 #include <std_msgs/msg/bool.h>
 #include <std_msgs/msg/int16.h>
@@ -92,18 +106,38 @@ uint16_t byte_swap(uint16_t val){
     return (val << 8) | (val >> 8);
 }
 
+bool toggle = false;
 void response_to_vim_callback(const void* msgin) {
   const std_msgs__msg__Int16 * msg = (const std_msgs__msg__Int16 *)msgin;
   // Process the received command
   // Check for valid command index
+
+#if defined(MULTI_COLOR_LED)
+  if(toggle){
+      ws2812fxStatus.setColor(0, 0, RGB_BRIGHTNESS);
+  }
+  else{
+      ws2812fxStatus.setColor(0, RGB_BRIGHTNESS, 0);
+  }
+  toggle = !toggle;
+  ws2812fxStatus.service();
+#endif
   bool break_flag = false;
   for(int i=0; i<sizeof(vim_commands)/sizeof(vim_command_t); i++){
     if(msg->data == vim_commands[i].command){
-        rosidl_runtime_c__String__assign(&response_to_vim_string_msg.data, vim_response[i].command_name);
+
+        rosidl_runtime_c__String__init(&response_to_vim_string_msg.data);
+        response_to_vim_string_msg.data = micro_ros_string_utilities_set(response_to_vim_string_msg.data, vim_response[i].command_name);
+        break_flag = true;
         break;
     }
   }
   if(!break_flag){
+      char* message;
+      sprintf(message, "UNKNOWN RESPONSE TO VIM: 0x%04X", msg->data);
+      rosidl_runtime_c__String__init(&response_to_vim_string_msg.data);
+      response_to_vim_string_msg.data = micro_ros_string_utilities_set(response_to_vim_string_msg.data, message);
+      RCSOFTCHECK(rcl_publish(&response_to_vim_string_publisher, &response_to_vim_string_msg, NULL));
       return;
   }
   
@@ -154,14 +188,18 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
     RCSOFTCHECK(rcl_publish(&command_from_vim_publisher, &response_to_vim_msg, NULL));
     for(int i=0; i<sizeof(vim_commands)/sizeof(vim_command_t); i++){
       if(frame.message == vim_commands[i].command){
-          // Publish string message
-          rosidl_runtime_c__String__assign(&command_from_vim_string_msg.data, vim_commands[i].command_name);
-          RCSOFTCHECK(rcl_publish(&command_from_vim_string_publisher, &command_from_vim_string_msg, NULL));
-          
-          rosidl_runtime_c__String__assign(&response_to_vim_string_msg.data, vim_response[i].command_name);
-          RCSOFTCHECK(rcl_publish(&response_to_vim_string_publisher, &response_to_vim_string_msg, NULL));
+        // Publish string message
+        //rosidl_runtime_c__String__assign(&command_from_vim_string_msg.data, vim_commands[i].command_name);
+        rosidl_runtime_c__String__init(&command_from_vim_string_msg.data);
+        command_from_vim_string_msg.data = micro_ros_string_utilities_set(command_from_vim_string_msg.data, vim_commands[i].command_name);
+        RCSOFTCHECK(rcl_publish(&command_from_vim_string_publisher, &command_from_vim_string_msg, NULL));
 
-          break;
+        //rosidl_runtime_c__String__assign(&response_to_vim_string_msg.data, vim_response[i].command_name);
+        rosidl_runtime_c__String__init(&response_to_vim_string_msg.data);
+        response_to_vim_string_msg.data = micro_ros_string_utilities_set(response_to_vim_string_msg.data, vim_response[i].command_name);
+        RCSOFTCHECK(rcl_publish(&response_to_vim_string_publisher, &response_to_vim_string_msg, NULL));
+
+        break;
       }
     } 
   }
@@ -212,20 +250,20 @@ void setup() {
     &command_from_vim_publisher,  
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int16),
-    "command_from_vim"));
+    "/vim/command_from_vim"));
 
   RCCHECK(rclc_publisher_init_default(
     &command_from_vim_string_publisher,  
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, String),
-    "command_from_vim_string"));
+    "/vim/command_from_vim_string"));
 
 
   RCCHECK(rclc_publisher_init_default(
     &response_to_vim_string_publisher,
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, String),
-    "respond_to_vim_string"));
+    "/vim/response_to_vim_string"));
 
 
   // create response_to_vim_subscriber
@@ -233,7 +271,7 @@ void setup() {
     &response_to_vim_subscriber,
     &node,
     ROSIDL_GET_MSG_TYPE_SUPPORT(std_msgs, msg, Int16),
-    "response_to_vim"));
+    "/vim/response_to_vim"));
 
 
   // create timer,
