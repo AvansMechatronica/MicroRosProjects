@@ -160,6 +160,7 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
        && twist.angular.z < ANGULAR_Z_MIN)){
         twist.linear.x = 0;
         twist.angular.z = 0;
+        return;
     }
     RCSOFTCHECK(rcl_publish(&twist_publisher, &twist, NULL));
 #endif
