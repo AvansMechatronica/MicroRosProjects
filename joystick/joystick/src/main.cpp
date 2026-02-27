@@ -168,8 +168,8 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
 }
 
 #if defined(WIFI)
-  String wifiWIFI_SSID = WIFI_SSID;
-  String wifiPass = WIFI_PASSWORD;
+  const char* wifiSSID = WIFI_SSID;
+  const char* wifiPass = WIFI_PASSWORD;
 #endif
 
 void setup() {
@@ -198,7 +198,7 @@ void setup() {
 
 
   WiFi.setHostname("JoystickController");
-  set_microros_wifi_transports(wifiWIFI_SSID, wifiPass, AGENT_IP_ADDRESS, (size_t)PORT);
+  set_microros_wifi_transports((char*)wifiSSID, (char*)wifiPass, AGENT_IP_ADDRESS, (size_t)PORT);
 #else
   Serial.begin(115200);
   set_microros_serial_transports(Serial);

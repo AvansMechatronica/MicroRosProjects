@@ -38,11 +38,10 @@ rcl_timer_t timer;
 #define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){}}
 
 bool errorLedState = false;
-//#define STATUS_LED_PIN    2 //LED_BUILTIN //8
+
 #define MAX_RANGE  1.00
 #define MIN_RANGE  0.10
-//#define SR04_TRIG_PIN   32
-//#define SR04_ECHO_PIN   33
+
 
 void error_loop(){
   Serial.printf("Ultrasonic Sensor\nError\nSystem halted");
@@ -86,8 +85,8 @@ void timer_callback(rcl_timer_t * timer, int64_t last_call_time) {
     sensor_information.sensor_data.header.stamp.sec = ts.tv_sec;
     sensor_information.sensor_data.header.stamp.nanosec = ts.tv_nsec;
 
-    //double* distances = 0;// HCSR04.measureDistanceCm();
     double* distances = HCSR04.measureDistanceCm();
+    //Serial.printf("Distance: %.2f cm\n", distances[0]);
     sensor_information.sensor_data.range= (float)(distances[0]/100.0);
 
     RCSOFTCHECK(rcl_publish(&sensor_information_publisher, &sensor_information, NULL));
@@ -111,9 +110,14 @@ void setup() {
 #endif
 #endif
 
+  pinMode(SR04_TRIG_PIN, OUTPUT);
+  pinMode(SR04_ECHO_PIN, INPUT);
 
   Serial.begin(115200);
+#ifndef DEBUG_SENSOR
   set_microros_serial_transports(Serial);
+#endif
+
   delay(2000);
 
 #if defined(MULTI_COLOR_LED)
@@ -121,9 +125,8 @@ void setup() {
   ws2812fxStatus.service();
 #endif
 
-
-
   HCSR04.begin(SR04_TRIG_PIN, SR04_ECHO_PIN);
+
   allocator = rcl_get_default_allocator();
 
   //create init_options
