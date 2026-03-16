@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "vr_sample_train"
+		},
+		{
+			"path": "vr_sample_bridge"
+		},
+		{
+			"path": "vr_sample_check_baud_rate"
+		},
+		{
+			"path": "vr_sample_control_led"
+		},
+		{
+			"path": "vr_sample_multi_cmd"
+		}
+	],
+	"settings": {}
+}

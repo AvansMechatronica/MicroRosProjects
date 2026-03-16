@@ -28,12 +28,9 @@
 #include "VoiceRecognitionV3.h"
 
 /**        
- * Connection
- * Arduino    VoiceRecognitionModule
- * 2   ------->     TX
- * 3   ------->     RX
+ * Connection to VR module
  */
-VR myVR(2,3);    // 2:RX 3:TX, you can choose your favourite pins.
+VR myVR(VR_RX_PIN, VR_TX_PIN);    // Defined in platformio.ini, default RX pin is 2, TX pin is 3
 
 /***************************************************************************/
 /** declare print functions */
