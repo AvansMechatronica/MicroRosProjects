@@ -24,7 +24,7 @@ VR myVR(VR_RX_PIN, VR_TX_PIN);    // Defined in platformio.ini, default RX pin i
 uint8_t records[7]; // save record
 uint8_t buf[64];
 
-int led = 13;
+
 
 #define onRecord    (0)
 #define offRecord   (1) 
@@ -93,13 +93,16 @@ void printVR(uint8_t *buf)
 
 void setup()
 {
-  /** initialize */
-  myVR.begin(9600);
   
   Serial.begin(115200);
+  delay(1000);
+
   Serial.println("Elechouse Voice Recognition V3 Module\r\nControl LED sample");
-  
-  pinMode(led, OUTPUT);
+  delay(1000);
+  /** initialize */
+  myVR.begin(9600);
+
+  pinMode(STATUS_LED_PIN, OUTPUT);
     
   if(myVR.clear() == 0){
     Serial.println("Recognizer cleared.");
@@ -126,11 +129,11 @@ void loop()
     switch(buf[1]){
       case onRecord:
         /** turn on LED */
-        digitalWrite(led, HIGH);
+        digitalWrite(STATUS_LED_PIN, LOW);
         break;
       case offRecord:
         /** turn off LED*/
-        digitalWrite(led, LOW);
+        digitalWrite(STATUS_LED_PIN, HIGH);
         break;
       default:
         Serial.println("Record function undefined");

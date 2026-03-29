@@ -136,11 +136,14 @@ uint8_t records[7]; // save record
 
 void setup(void)
 {
-  myVR.begin(9600);
 
   /** initialize */
   Serial.begin(115200);
+  delay(1000);
   Serial.println(F("Elechouse Voice Recognition V3 Module \"train\" sample."));
+  delay(1000);
+  myVR.begin(9600);
+
 
   printSeperator();
   Serial.println(F("Usage:"));
